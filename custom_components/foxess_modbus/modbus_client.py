@@ -178,6 +178,8 @@ class ModbusClient:
         # in case it helps.
         self._poll_delay = 30 / 1000 if protocol == SERIAL or adapter.connection_type == LAN else 0
 
+        self._last_disconnection = time.monotonic()
+
         self._client = client["client"](**config)
 
     async def close(self) -> None:
@@ -286,6 +288,12 @@ class ModbusClient:
     async def _async_pymodbus_call(self, call: Callable[..., T], *args: Any) -> T:
         """Convert async to sync pymodbus call."""
         async with self._lock:
+            now = time.monotonic()
+            if (now - self._last_disconnection) > 60:
+                _LOGGER.debug("Disconnecting...")
+                await self._hass.async_add_executor_job(self._client.close)
+                self._last_disconnection = now
+
             result = await self._hass.async_add_executor_job(call, *args)
             # This seems to be required for serial devices, otherwise subsequent reads fail
             # The HA modbus integration does the same
