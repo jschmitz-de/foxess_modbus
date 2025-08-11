@@ -2276,7 +2276,7 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soh=[
             # Temporarily removed, see #756
             # ModbusAddressesSpec(input=[11104], models=Inv.KH_PRE119),
-            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133),
+            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133 | Inv.H3_PRO_SET),
             ModbusAddressesSpec(holding=[31090], models=Inv.H3_180),
         ],
         battery_temp=[
