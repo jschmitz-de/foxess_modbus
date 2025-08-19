@@ -1687,6 +1687,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:solar-power",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 18154,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -1764,6 +1766,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:battery-arrow-up-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 4107,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -1838,6 +1842,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:battery-arrow-down-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 3749,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -1914,6 +1920,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:transmission-tower-import",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 7824,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -1991,6 +1999,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:transmission-tower-export",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 5575,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -2068,6 +2078,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:export",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 16970,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
@@ -2131,6 +2143,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             native_unit_of_measurement="kWh",
             icon="mdi:import",
             scale=scale,
+            post_process=lambda x: x + 84,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             signed=False,
             validate=[Min(0)],
         )
@@ -2196,6 +2210,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:home-lightning-bolt-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 14579,
+        ## JS 25-08-17 Changed Inverter - Obtaining MY historical values
             validate=[Min(0)],
         )
 
