@@ -2440,7 +2440,7 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soh=[
             # Temporarily removed, see #756
             # ModbusAddressesSpec(input=[11104], models=Inv.KH_PRE119),
-            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133),
+            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133 | Inv.H3_PRO_SET),
             ModbusAddressesSpec(holding=[31090], models=Inv.H3_180),
         ],
         battery_temp=[
@@ -2484,7 +2484,7 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soc=[ModbusAddressesSpec(holding=[37612], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         # Added in H3_PRO v1.25, which hasn't been released yet.
         # See https://github.com/nathanmarlor/foxess_modbus/pull/775#issuecomment-2656447502
-        battery_soh=[ModbusAddressesSpec(holding=[37624], models=Inv.H3_SMART)],
+        battery_soh=[ModbusAddressesSpec(holding=[37624], models=Inv.H3_SMART | Inv.H3_PRO_SET)],
         battery_temp=[ModbusAddressesSpec(holding=[37611], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_high=[ModbusAddressesSpec(holding=[37617], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_low=[ModbusAddressesSpec(holding=[37618], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
@@ -2500,7 +2500,7 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soc=[ModbusAddressesSpec(holding=[38310], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         # Added in H3_PRO v1.25, which hasn't been released yet.
         # See https://github.com/nathanmarlor/foxess_modbus/pull/775#issuecomment-2656447502
-        battery_soh=[ModbusAddressesSpec(holding=[38322], models=Inv.H3_SMART)],
+        battery_soh=[ModbusAddressesSpec(holding=[38322], models=Inv.H3_SMART | Inv.H3_PRO_SET)],
         battery_temp=[ModbusAddressesSpec(holding=[38309], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_high=[ModbusAddressesSpec(holding=[38315], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_low=[ModbusAddressesSpec(holding=[38316], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
