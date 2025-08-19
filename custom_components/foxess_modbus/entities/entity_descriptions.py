@@ -126,6 +126,21 @@ def _version_entities() -> Iterable[EntityFactory]:
         is_hex=True,
     )
 
+    def _bms_1_master_version(address: list[ModbusAddressSpec], is_hex: bool) -> ModbusVersionSensorDescription:
+        return ModbusVersionSensorDescription(
+            key="bms_1_master_version",
+            address=address,
+            is_hex=is_hex,
+            name="Version: BMS 1 Master",
+            icon="mdi:source-branch",
+        )
+
+    yield _bms_1_master_version(
+        address=[
+            ModbusAddressSpec(holding=37003, models=Inv.H3_PRO_SET),
+        ],
+        is_hex=True,
+    )
 
 def _pv_entities() -> Iterable[EntityFactory]:
     def _pv_voltage(key: str, addresses: list[ModbusAddressesSpec], name: str) -> EntityFactory:
