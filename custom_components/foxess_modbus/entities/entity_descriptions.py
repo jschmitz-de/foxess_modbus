@@ -31,7 +31,7 @@ from .modbus_inverter_state_sensor import ModbusInverterStateSensorDescription
 from .modbus_lambda_sensor import ModbusLambdaSensorDescription
 from .modbus_number import ModbusNumberDescription
 from .modbus_sensor import ModbusSensorDescription
-from .modbus_version_sensor import ModbusVersionSensorDescription
+from .modbus_version_sensor import ModbusVersionSensorDescriptionfrom .modbus_version_sensor import ModbusVersionSensorDescriptionofrom .modbus_version_sensor import ModbusVersionSensorDescription
 from .modbus_work_mode_select import ModbusWorkModeSelectDescription
 from .remote_control_description import REMOTE_CONTROL_DESCRIPTION
 from .validation import Min
@@ -76,7 +76,23 @@ def _version_entities() -> Iterable[EntityFactory]:
         ],
         is_hex=True,
     )
+### Input JS
+    def _bms_1_master_version(address: list[ModbusAddressSpec], is_hex: bool) -> ModbusVersionSensorDescription:
+        return ModbusVersionSensorDescription(
+            key="bms_1_master_version",
+            address=address,
+            is_hex=is_hex,
+            name="Version: BMS 1 Master",
+            icon="mdi:source-branch",
+        )
 
+    yield _bms_1_master_version(
+        address=[
+            ModbusAddressSpec(holding=37003, models=Inv.H3_PRO_122),
+        ],
+        is_hex=True,
+    )
+### EOF Input JS
     def _slave_version(address: list[ModbusAddressSpec], is_hex: bool) -> ModbusVersionSensorDescription:
         return ModbusVersionSensorDescription(
             key="slave_version",
@@ -1672,6 +1688,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:solar-power",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 18154,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert
             validate=[Min(0)],
         )
 
@@ -1749,6 +1767,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:battery-arrow-up-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 4107,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert
             validate=[Min(0)],
         )
 
@@ -1805,6 +1825,7 @@ def _inverter_entities() -> Iterable[EntityFactory]:
         ],
         scale=0.1,
     )
+
     yield _battery_charge_today(
         addresses=[
             ModbusAddressesSpec(holding=[39608, 39607], models=Inv.H3_SMART | Inv.H3_PRO_SET & ~Inv.H3_PRO_PRE122),
@@ -1823,6 +1844,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:battery-arrow-down-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 3749,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert
             validate=[Min(0)],
         )
 
@@ -1899,6 +1922,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:transmission-tower-import",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 7824,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert                                            
             validate=[Min(0)],
         )
 
@@ -1976,6 +2001,9 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:transmission-tower-export",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 5575,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert                                            
+
             validate=[Min(0)],
         )
 
@@ -2053,7 +2081,10 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:export",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 16970,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert
             validate=[Min(0)],
+                                                                
         )
 
     yield _total_yield_total(
@@ -2117,6 +2148,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:import",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 84,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert
             validate=[Min(0)],
         )
 
@@ -2181,6 +2214,8 @@ def _inverter_entities() -> Iterable[EntityFactory]:
             icon="mdi:home-lightning-bolt-outline",
             scale=scale,
             signed=False,
+            post_process=lambda x: x + 14579,
+        ## JS 25-08-17 Wechsel von Inverter - Historien Wert addiert                                                                                                               
             validate=[Min(0)],
         )
 
@@ -2409,7 +2444,9 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soh=[
             # Temporarily removed, see #756
             # ModbusAddressesSpec(input=[11104], models=Inv.KH_PRE119),
-            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133),
+            ModbusAddressesSpec(holding=[37624], models=Inv.H1_G2_144 | Inv.KH_133 | Inv.H3_PRO_SET),
+                                                                                                        
+            ## JS Input Inv.H3_Pro_Set                                                                                           
             ModbusAddressesSpec(holding=[31090], models=Inv.H3_180),
         ],
         battery_temp=[
@@ -2453,7 +2490,8 @@ def _bms_entities() -> Iterable[EntityFactory]:
         battery_soc=[ModbusAddressesSpec(holding=[37612], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         # Added in H3_PRO v1.25, which hasn't been released yet.
         # See https://github.com/nathanmarlor/foxess_modbus/pull/775#issuecomment-2656447502
-        battery_soh=[ModbusAddressesSpec(holding=[37624], models=Inv.H3_SMART)],
+        battery_soh=[ModbusAddressesSpec(holding=[37624], models=Inv.H3_SMART | Inv.H3_PRO_SET)],
+        ## JS Input Inv.H3_Pro_Set                          
         battery_temp=[ModbusAddressesSpec(holding=[37611], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_high=[ModbusAddressesSpec(holding=[37617], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
         bms_cell_temp_low=[ModbusAddressesSpec(holding=[37618], models=Inv.H3_PRO_SET | Inv.H3_SMART)],
