@@ -31,7 +31,7 @@ from .modbus_inverter_state_sensor import ModbusInverterStateSensorDescription
 from .modbus_lambda_sensor import ModbusLambdaSensorDescription
 from .modbus_number import ModbusNumberDescription
 from .modbus_sensor import ModbusSensorDescription
-from .modbus_version_sensor import ModbusVersionSensorDescriptionfrom .modbus_version_sensor import ModbusVersionSensorDescriptionofrom .modbus_version_sensor import ModbusVersionSensorDescription
+from .modbus_version_sensor import ModbusVersionSensorDescription
 from .modbus_work_mode_select import ModbusWorkModeSelectDescription
 from .remote_control_description import REMOTE_CONTROL_DESCRIPTION
 from .validation import Min
